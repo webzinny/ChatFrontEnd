@@ -1,0 +1,31 @@
+.chatInp{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    margin-top: 10px;
+    height: 50px;
+    width: 100%;
+}
+.chatInp input{
+    color: white;
+    width: 80%;
+    height: 40px;
+    border-radius: 1rem;
+    border: none;
+    outline: none;
+    padding: 5px 12% 5px 10px;
+    background-color: rgb(25, 40, 59);
+}
+.chatInp button{
+    background: none;
+    border: none;
+    outline: none;
+    position: absolute;
+    bottom: 15%;
+    right: 13%;
+}
+.sendIcon{
+    transform: rotateZ(42deg);
+    color: white;
+}

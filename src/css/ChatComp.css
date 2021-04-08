@@ -1,0 +1,8 @@
+.ChatComp{
+    position: fixed !important;
+    display: flex;
+    background-color: rgb(28, 46, 70);
+    height: 100%;
+    width: 100%;
+    flex-direction: column;
+}
