@@ -19,22 +19,29 @@ export default function UiComp(props) {
                 Messages
                 <button onClick={()=>{conn.connect("l")}} ><FaSearch size='18px' /></button>
             </div>
-    {/* ---------------------------------------------------- */}
+    {/* ----------------------UserRenderer------------------------------ */}
             <div className='UiUserRenderer'>
-                <UiUser getName={props.getName} userName="Atul singh" lastMsg="How are you"/>
-                <UiUser getName={props.getName}  userName="Dev" lastMsg="Khaa h yrr" />
-                <UiUser getName={props.getName} userName="Masoom Khan" lastMsg="Nahi btaunga" />
-            </div>
+                {props.clientData.map(data =>{
+                    if (data.id !== props.userData.id){
+                        return (<UiUser key={data.id} getName={props.getName} userName={data.name} lastMsg="How are you" />)
+                    }
+                })}
 
+                <UiUser key="20" getName={props.getName} userName="Common Group" lastMsg="Welcome to Group" />
+            </div>
     {/* -----------------NAV BAR--------------------------------- */}
             <div id="NavBar">
                 <div>
                     <i id="NavCrossBtn" onClick={NavCloseHandler}><FaTimes size="22px" /></i>
                 </div>
+                <div id="UserName">
+                    Hi! <br />
+                    {props.userData.name}
+                </div>
                 <button>Friends</button> <br />
                 <button>Groups</button>
             </div>
-        
+    {/* -------------------------------------------------------------------- */}
         </div>
     )
 }

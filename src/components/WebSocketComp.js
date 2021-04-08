@@ -1,4 +1,4 @@
-
+import ChatMsgBox from './ChatMsgBox'
 class WebSocketComp {
     static instanace = null;
 
@@ -18,10 +18,14 @@ class WebSocketComp {
 
         this.socket.onopen=()=>{console.log("Connection established...")}
 
-        this.socket.onmessage=(e)=>{console.log(e.data)}
+        this.socket.onmessage=(e)=>{this.update(JSON.parse(e.data))}
 
         this.socket.onclose=()=>{console.log("Byyee...")}
 
+    }
+
+    update(msg){
+        ChatMsgBox.update(msg.msg);
     }
 
     disconnect(){
