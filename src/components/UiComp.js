@@ -28,7 +28,7 @@ export default function UiComp(props) {
                     return null;
                 })}
 
-                <UiUser key="20" id="20" getName={props.getName} userName="Common Group" lastMsg="Welcome to Group" />
+                <UiUser key="20" id="Grp" getName={props.getName} userName="Common Group" lastMsg="Welcome to Group" />
             </div>
     {/* -----------------NAV BAR--------------------------------- */}
             <div id="NavBar">

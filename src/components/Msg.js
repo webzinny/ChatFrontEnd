@@ -4,7 +4,7 @@ const Msg=(props)=>{
         <div>
             <div className={props.typ}>
                 <p>{props.msg}</p>
-                <small>12:45 AM</small>
+                <small>{props.time}</small>
             </div>
         </div>
     );

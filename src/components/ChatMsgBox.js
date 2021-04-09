@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import '../css/ChatMsgBox.css'
 import Msg from './Msg'
+import axios from 'axios'
 
 class ChatMsgBox extends Component {
 
@@ -14,18 +15,18 @@ class ChatMsgBox extends Component {
 
     connect(url) {
         this.socketRef = new WebSocket(`ws://localhost:8000/ws/chat/${url}/`);
-        this.socketRef.onopen = () => {
-            console.log("Connection established..");
-        };
+        // this.socketRef.onopen = () => {
+        //     console.log("Connection established..");
+        // };
         this.socketRef.onmessage = e => {
             this.socketNewMessage(e.data);
         };
         this.socketRef.onerror = e => {
             console.log(e.message);
         };
-        this.socketRef.onclose = () => {
-            console.log("WebSocket closed");
-        };
+        // this.socketRef.onclose = () => {
+        //     console.log("WebSocket closed");
+        // };
     }
 
     disconnect=()=> {
@@ -39,7 +40,7 @@ class ChatMsgBox extends Component {
 
     sendMessage(data) {
         try {
-            this.socketRef.send(JSON.stringify({ 'msg': [this.props.userId,data] }));
+            this.socketRef.send(JSON.stringify({ 'msg': [this.props.userId, data]}));
         } catch (err) {
             console.log(err.message);
         }
@@ -54,17 +55,40 @@ class ChatMsgBox extends Component {
     }
 
     componentDidMount(){
-        this.connect(this.props.id);
+        let path=null;
+        if (this.props.id==="Grp"){
+            path="grp"
+        }else{
+            let arr = [this.props.id, this.props.userId]
+            arr.sort(function (a, b) { return a - b })
+            path=arr.join("_")
+        }
+        axios.get(`http://localhost:8000/chat/msg/${path}`)
+        .then(res=>{
+            this.setState({ msgs: res.data },this.connect(path))
+        })
     }
 
     render() {
         return (
             <div className="ChatMsgBox" id="ChatBox">
                 {this.state.msgs.map((e,ind)=>{
-                    if(this.props.userId===e.msg[0]){
-                        return (<Msg key={ind} typ='userMsg' msg={e.msg[1]} />)
-                    }else{
-                        return(<Msg key={ind} typ='clientMsg' msg={e.msg[1]} />)
+                    if (e.sender === undefined) {
+                        let date = new Date()
+                        date = "" + date.getHours() + ":" + date.getMinutes()
+                        if (this.props.userId === e.msg[0]) {
+                            return (<Msg key={ind} typ='userMsg' msg={e.msg[1]} time={date} />)
+                        } else {
+                            return (<Msg key={ind} typ='clientMsg' msg={e.msg[1]} time={date} />)
+                        }
+                    } else {
+                        let date = new Date(e.time)
+                        date = "" + date.getHours() + ":" + date.getMinutes()
+                        if (this.props.userId === e.sender) {
+                            return (<Msg key={ind} typ='userMsg' msg={e.msg} time={date} />)
+                        } else {
+                            return (<Msg key={ind} typ='clientMsg' msg={e.msg} time={date} />)
+                        }
                     }
                 })}
             </div>
