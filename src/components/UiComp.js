@@ -23,11 +23,12 @@ export default function UiComp(props) {
             <div className='UiUserRenderer'>
                 {props.clientData.map(data =>{
                     if (data.id !== props.userData.id){
-                        return (<UiUser key={data.id} getName={props.getName} userName={data.name} lastMsg="How are you" />)
+                        return (<UiUser key={data.id} id={data.id} getName={props.getName} userName={data.name} lastMsg="How are you" />)
                     }
+                    return ;
                 })}
 
-                <UiUser key="20" getName={props.getName} userName="Common Group" lastMsg="Welcome to Group" />
+                <UiUser key="20" id="20" getName={props.getName} userName="Common Group" lastMsg="Welcome to Group" />
             </div>
     {/* -----------------NAV BAR--------------------------------- */}
             <div id="NavBar">

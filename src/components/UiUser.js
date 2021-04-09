@@ -1,12 +1,7 @@
 import '../css/UiUser.css'
-import conn from './WebSocketComp'
 export default function UiUser(props) {
-    const UiUserClickHandler=(e)=>{
-        let data = e.target.firstChild.data;
-        props.getName(data);
-        if (data==="Common Group"){
-            conn.connect('cmnGrp');
-        }
+    const UiUserClickHandler=()=>{
+        props.getName({id:props.id,name:props.userName});
     }
     
     return (

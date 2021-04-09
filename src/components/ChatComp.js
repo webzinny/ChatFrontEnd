@@ -2,14 +2,31 @@ import ChatCompHead from './ChatCompHead';
 import ChatMsgBox from './ChatMsgBox'
 import ChatInp from './ChatInp'
 import '../css/ChatComp.css'
-const ChatComp =(props)=>{
-    return(
-        <div className="ChatComp">
-            <ChatCompHead userName={props.userName} backToUi={props.backToUi} />
-            <ChatMsgBox />
-            <ChatInp />
-        </div>
-    );
+import React, { Component } from 'react'
+
+class ChatComp extends Component {
+
+    constructor(props) {
+        super(props)
+        this.child=React.createRef();
+    }
+
+    update = (msg) => {
+        this.child.current.updateMsgs(msg);
+    }
+    
+    render() {
+        return (
+            <div className="ChatComp">
+                 <ChatCompHead userName={this.props.userName.name} dis={this.dis} backToUi={this.props.backToUi} />
+                 <ChatMsgBox id={this.props.userName.id} ref={this.child} />
+                 <ChatInp update={this.update}/>
+            </div>
+        )
+    }
 }
 
-export default ChatComp;
+export default ChatComp
+
+
+

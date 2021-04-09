@@ -33,8 +33,8 @@ class App extends Component {
     this.setState({ui:"ui"});
   }
 
-  UiToChatHandler=(name)=>{
-    this.userName=name;
+  UiToChatHandler=(obj)=>{
+    this.chatData=obj;
     this.setState({ui:"chat"});
   }
 
@@ -56,7 +56,7 @@ class App extends Component {
     } else {
         return (
           <div className="App">
-            <ChatComp userName={this.userName} backToUi={this.ChatToUiHandler} />
+            <ChatComp userName={this.chatData} backToUi={this.ChatToUiHandler} />
           </div>
         )
     }

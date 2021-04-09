@@ -6,9 +6,6 @@ function ChatCompHead(props){
 
     const backClickHandler=()=>{
         props.backToUi();
-        if (conn!==null){
-            conn.disconnect();
-        }
     }
 
     return(

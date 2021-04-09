@@ -1,16 +1,15 @@
 import '../css/ChatInp.css'
 import {IoIosSend} from 'react-icons/io'
-import conn from './WebSocketComp'
-const ChatInp = () =>{
+const ChatInp = (props) =>{
     let inp=document.getElementById("userInput");
     // let box = document.getElementById('ChatBox');
     const sendHandler=()=>{
         if (inp){
-            conn.sendMsg(inp.value);
+            props.update(inp.value);
             inp.value = "";
         }else{
             inp = document.getElementById("userInput");
-            conn.sendMsg(inp.value);
+            props.update(inp.value);
             inp.value="";
         }
     }
