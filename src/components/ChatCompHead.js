@@ -1,10 +1,10 @@
 import '../css/ChatCompHead.css'
 import {FaSignOutAlt,FaChevronLeft} from 'react-icons/fa'
-import conn from './WebSocketComp'
 
 function ChatCompHead(props){
 
     const backClickHandler=()=>{
+        props.dis()
         props.backToUi();
     }
 

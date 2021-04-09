@@ -56,7 +56,7 @@ class App extends Component {
     } else {
         return (
           <div className="App">
-            <ChatComp userName={this.chatData} backToUi={this.ChatToUiHandler} />
+            <ChatComp userData={this.userData} userName={this.chatData} backToUi={this.ChatToUiHandler} />
           </div>
         )
     }

@@ -14,12 +14,15 @@ class ChatComp extends Component {
     update = (msg) => {
         this.child.current.updateMsgs(msg);
     }
+    dis =()=>{
+        this.child.current.disconnect()
+    }
     
     render() {
         return (
             <div className="ChatComp">
                  <ChatCompHead userName={this.props.userName.name} dis={this.dis} backToUi={this.props.backToUi} />
-                 <ChatMsgBox id={this.props.userName.id} ref={this.child} />
+                 <ChatMsgBox userId={this.props.userData.id} id={this.props.userName.id} ref={this.child} />
                  <ChatInp update={this.update}/>
             </div>
         )

@@ -24,8 +24,7 @@ class ChatMsgBox extends Component {
             console.log(e.message);
         };
         this.socketRef.onclose = () => {
-            console.log("WebSocket closed let's reopen");
-            this.connect();
+            console.log("WebSocket closed");
         };
     }
 
@@ -40,7 +39,7 @@ class ChatMsgBox extends Component {
 
     sendMessage(data) {
         try {
-            this.socketRef.send(JSON.stringify({ 'msg': data }));
+            this.socketRef.send(JSON.stringify({ 'msg': [this.props.userId,data] }));
         } catch (err) {
             console.log(err.message);
         }
@@ -55,14 +54,19 @@ class ChatMsgBox extends Component {
     }
 
     componentDidMount(){
-        console.log("heloo from msg box")
         this.connect(this.props.id);
     }
 
     render() {
         return (
             <div className="ChatMsgBox" id="ChatBox">
-                {this.state.msgs.map((e,ind)=><Msg key={ind} typ='userMsg' msg={e.msg}/>)}
+                {this.state.msgs.map((e,ind)=>{
+                    if(this.props.userId===e.msg[0]){
+                        return (<Msg key={ind} typ='userMsg' msg={e.msg[1]} />)
+                    }else{
+                        return(<Msg key={ind} typ='clientMsg' msg={e.msg[1]} />)
+                    }
+                })}
             </div>
         )
     }
